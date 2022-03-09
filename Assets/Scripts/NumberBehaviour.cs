@@ -16,7 +16,7 @@ public class NumberBehaviour : MonoBehaviour
         button = this.GetComponent<Button>();
         text = this.GetComponent<TextMeshPro>();
         text.color = Random.ColorHSV(0f, 1f, 1f, 1f, 1f, 1f);
-        text.fontSize = Random.Range(6.5f, 8.5f);
+        text.fontSize = Random.Range(6.0f, 8.0f);
     }
 
     public void ButtonOnClick()

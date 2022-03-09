@@ -118,7 +118,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 53609717afe004e469f2fdd1120a8e70, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: de664383e5b2b9d4ba52c2b4752e4fce, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_fontSize: 8
   m_fontSizeBase: 8
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 6
   m_fontSizeMax: 8
   m_fontStyle: 0
@@ -200,4 +200,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9769ead49527e2144a881c362f11ee5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 5

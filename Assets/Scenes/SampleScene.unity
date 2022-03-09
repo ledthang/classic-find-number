@@ -427,7 +427,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 50, y: 250}
+  m_AnchoredPosition: {x: 50, y: 200}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &498407473
@@ -473,7 +473,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 498407474}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1626474157}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: FindButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &498407474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -706,7 +718,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 50, y: 100}
+  m_AnchoredPosition: {x: 50, y: 50}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1134999450
@@ -902,7 +914,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 50, y: 200}
+  m_AnchoredPosition: {x: 50, y: 150}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1213665442
@@ -948,7 +960,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1213665443}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1626474157}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: ReplayButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1213665443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1174,7 +1198,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 50, y: 150}
+  m_AnchoredPosition: {x: 50, y: 100}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1382129727
@@ -1378,9 +1402,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentNumberText: {fileID: 307767974}
-  currentNumber: 0
-  timeText: {fileID: 0}
-  time: 0
+  timeText: {fileID: 394987061}
+  canvas: {fileID: 1989734159}
+  findCircleImg: {fileID: 4533725123981647303, guid: 6ab6a5c20ce511a44b000fc0bb7ac3ae, type: 3}
 --- !u!1 &1639736957
 GameObject:
   m_ObjectHideFlags: 0
@@ -1426,7 +1450,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDouleClick: 0
   canvas: {fileID: 1989734159}
-  circleImg: {fileID: 4533725123981647303, guid: 766956de555a36e4aa9dfcf0a9a9d68c, type: 3}
+  circleImg1: {fileID: 4533725123981647303, guid: 766956de555a36e4aa9dfcf0a9a9d68c, type: 3}
+  circleImg2: {fileID: 4533725123981647303, guid: 2ea6c3c18040af24983575b02e2c0830, type: 3}
 --- !u!1 &1778383371
 GameObject:
   m_ObjectHideFlags: 0

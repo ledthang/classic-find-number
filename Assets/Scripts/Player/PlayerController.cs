@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -15,7 +16,8 @@ public class PlayerController : MonoBehaviour
     public bool isDouleClick;
 
     [SerializeField] GameObject canvas;
-    [SerializeField] GameObject circleImg;
+    [SerializeField] GameObject circleImg1;
+    [SerializeField] GameObject circleImg2;
 
     private void Awake()
     {
@@ -32,9 +34,10 @@ public class PlayerController : MonoBehaviour
         click = input.Player.Click;
         click.Enable();
         click.performed += (ctx) => HandleClick(ctx);
+        //click.performed += (ctx) => HandleSingleClick(ctx);
         doubleclick = input.Player.DoubleClick;
         doubleclick.Enable();
-        doubleclick.performed += (ctx) => HandleDoubleClick(ctx);
+        //doubleclick.performed += (ctx) => HandleDoubleClick(ctx);
         clickPosition = input.Player.Clickposition;
         clickPosition.Enable();
     }
@@ -53,10 +56,8 @@ public class PlayerController : MonoBehaviour
             if (hit.transform.name == GameManager.Instance.currentNumber.ToString())
             {
                 GameManager.Instance.currentNumber++;
-                //Destroy(hit.transform.gameObject);
-                GameObject circle = Instantiate(circleImg, canvas.transform);
+                GameObject circle = Instantiate(circleImg1, canvas.transform);
                 circle.transform.position = Camera.main.WorldToScreenPoint(hit.transform.position);
-                circle.GetComponent<RectTransform>().sizeDelta = hit.transform.gameObject.GetComponent<RectTransform>().sizeDelta;
             }
         }
     }
@@ -65,11 +66,29 @@ public class PlayerController : MonoBehaviour
     {
         isDouleClick = false;
         StartCoroutine(CheckDoubleClick());
-        //Destroy(this.gameObject);
     }
+    IEnumerator CheckDoubleClick()
+    {
+        yield return new WaitForSeconds(ConstStorage.deltaTime);
+        if (!isDouleClick)
+        {
+            Ray mousePos2D = Camera.main.ScreenPointToRay(clickPosition.ReadValue<Vector2>());
+            RaycastHit2D hit = Physics2D.GetRayIntersection(mousePos2D);
+            if (hit.transform != null)
+            {
+                if (hit.transform.name == GameManager.Instance.currentNumber.ToString())
+                {
+                    GameManager.Instance.currentNumber++;
+                    GameObject circle = Instantiate(circleImg1, canvas.transform);
+                    circle.transform.position = Camera.main.WorldToScreenPoint(hit.transform.position);
+                }
+            }
+        }
+    }
+
     void HandleDoubleClick(InputAction.CallbackContext ctx)
     {
-        //Debug.Log("Double click at " + clickPosition.ReadValue<Vector2>());
+        Debug.Log("Double click at " + clickPosition.ReadValue<Vector2>());
         isDouleClick = true;
 
         Ray mousePos2D = Camera.main.ScreenPointToRay(clickPosition.ReadValue<Vector2>());
@@ -77,22 +96,14 @@ public class PlayerController : MonoBehaviour
 
         if (hit.transform != null)
         {
-            Debug.Log("hit " + hit.transform.name);
-
-            if (hit.transform.tag == "number")
+            if (hit.transform.name == GameManager.Instance.currentNumber.ToString())
             {
-                Debug.Log("OK");
+                GameManager.Instance.currentNumber++;
+                GameObject circle = Instantiate(circleImg2, canvas.transform);
+                circle.transform.position = Camera.main.WorldToScreenPoint(hit.transform.position);
             }
         }
 
     }
 
-    IEnumerator CheckDoubleClick()
-    {
-        yield return new WaitForSeconds(ConstStorage.deltaTime);
-        if (!isDouleClick)
-        {
-            //Debug.Log("Single click at " + clickPosition.ReadValue<Vector2>());
-        }
-    }
 }

@@ -18,7 +18,7 @@ public class SpawnManager : MonoBehaviour
             _ => 32
         };
 
-        Debug.Log("Screen height " + Screen.height);
+        //Debug.Log("Screen height " + Screen.height);
         for (int i = 1; i < 100; i++)
         {
             Vector2 randomPos = GerenateRandomPosition();
@@ -32,11 +32,13 @@ public class SpawnManager : MonoBehaviour
     {
         Vector2 randomPos;
         RaycastHit2D hit;
+        int riskManager = 0;
         do
         {
+            riskManager++;
             randomPos = new Vector2(Random.Range(Screen.width * 0.11f, Screen.width * 0.95f), Random.Range(minHeight, Screen.height * 0.95f));
             hit = Physics2D.CircleCast(Camera.main.ScreenToWorldPoint(randomPos), 0.5f, Vector2.zero);
-        } while (hit.collider != null);
+        } while (hit.collider != null && riskManager < 10000);
 
         return Camera.main.ScreenToWorldPoint(randomPos);
     }

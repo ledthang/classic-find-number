@@ -10,6 +10,7 @@ public class CircleBehaviour : MonoBehaviour
     void Start()
     {
         this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360)));
+        this.transform.localScale *= Random.Range(0.8f, 1.1f);
     }
 
     // Update is called once per frame
