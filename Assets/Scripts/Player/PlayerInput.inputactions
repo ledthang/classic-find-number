@@ -1,0 +1,107 @@
+{
+    "name": "PlayerInput",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "c60c4428-e07d-4576-8612-e9822a22fb1c",
+            "actions": [
+                {
+                    "name": "Click",
+                    "type": "Button",
+                    "id": "20720f14-6ff5-48e1-9bcb-bdb8bd53867d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DoubleClick",
+                    "type": "Button",
+                    "id": "3443d6b6-63da-4876-905e-f60a366b1002",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Click position",
+                    "type": "PassThrough",
+                    "id": "780f66ba-79b5-4246-b4c8-7dcdb8369302",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "ead15a20-f20b-4056-9094-47968de46edc",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Tap",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b8c61ca3-e050-4598-b194-090b65297c7e",
+                    "path": "<Touchscreen>/primaryTouch/tap",
+                    "interactions": "Tap",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f181aeff-f2c3-4250-83bc-d1e5db0e6c9a",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "MultiTap(tapDelay=0.2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DoubleClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "46bac92e-b5ae-4a97-a185-8ae490e8d889",
+                    "path": "<Touchscreen>/primaryTouch/tap",
+                    "interactions": "MultiTap",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DoubleClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "62865a84-08be-49c1-b39a-211f71812db5",
+                    "path": "<Touchscreen>/primaryTouch/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Click position",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f3facede-1372-4696-b2e0-094bc886ad08",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Click position",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
