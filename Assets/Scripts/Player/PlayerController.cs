@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject circleImg1;
     [SerializeField] GameObject circleImg2;
 
+    public int P1Score, P2Score;
+
     enum ClickType
     {
         SingleClick,
@@ -57,6 +59,7 @@ public class PlayerController : MonoBehaviour
         }
         clickPosition = input.Player.Clickposition;
         clickPosition.Enable();
+        P1Score = P2Score = 0;
     }
 
     void Update()
@@ -99,9 +102,21 @@ public class PlayerController : MonoBehaviour
         {
             if (hit.transform.name == GameManager.Instance.currentNumber.ToString())
             {
+                GameObject circlePrefab;
+                if (clickType == ClickType.SingleClick)
+                {
+                    P1Score++;
+                    circlePrefab = circleImg1;
+                }
+                else
+                {
+                    P2Score++;
+                    circlePrefab = circleImg2;
+                }
+                AudioManager.Instance.DrawCircleSFX();
                 GameManager.Instance.AddTime();
                 GameManager.Instance.currentNumber++;
-                GameObject circle = Instantiate(clickType == ClickType.SingleClick ? circleImg1 : circleImg2, canvas.transform);
+                GameObject circle = Instantiate(circlePrefab, canvas.transform);
                 circle.transform.position = Camera.main.WorldToScreenPoint(hit.transform.position);
             }
         }

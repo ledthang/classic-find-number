@@ -12,11 +12,11 @@ public class MainManager : MonoBehaviour
     [Header("Slider")]
     [SerializeField] TextMeshProUGUI singleNumberText;
     [SerializeField] Slider singleNumberSlider;
-    
+
     [SerializeField] TextMeshProUGUI multiNumberText;
     [SerializeField] Slider multiNumberSlider;
 
-    
+
 
     private void Awake()
     {
@@ -28,6 +28,7 @@ public class MainManager : MonoBehaviour
         {
             Destroy(this);
         }
+        AudioManager.Instance.LoadButton();
     }
 
     private void OnEnable()
@@ -59,17 +60,29 @@ public class MainManager : MonoBehaviour
     public void SingleplayNormalButton()
     {
         DataManager.Instance.playMode = PlayMode.SingleNormal;
-        SceneManager.LoadScene(1);
+        StartCoroutine(DelayStart());
     }
     public void SingleplayTimeBlitzButton()
     {
         DataManager.Instance.playMode = PlayMode.SingleTimeBlitz;
-        SceneManager.LoadScene(1);
+        StartCoroutine(DelayStart());
     }
 
     public void MultiplayButton()
     {
         DataManager.Instance.playMode = PlayMode.Multiplay;
+        StartCoroutine(DelayStart());
+    }
+
+    IEnumerator DelayStart()
+    {
+        yield return new WaitForSeconds(AudioManager.Instance.clickLength);
         SceneManager.LoadScene(1);
+    }
+
+    public void BackButton()
+    {
+        Debug.Log("EXIT");
+        Application.Quit();
     }
 }

@@ -17,7 +17,7 @@ public class CircleBehaviour : MonoBehaviour
     void Update()
     {
         circleImg.fillAmount = progress;
-        progress += Time.deltaTime;
+        progress += Time.deltaTime*2;
         if (progress > 1)
         {
             Destroy(this);

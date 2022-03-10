@@ -8,19 +8,24 @@ public class SpawnManager : MonoBehaviour
 {
     [SerializeField] GameObject numberButton;
     private float minHeight;
-    float loopBound = 10000;
+    private float maxHeight;
+    private float minWidth;
+    private float maxWidth;
+    private float radius;
+    private float loopBound = 10000;
     void Start()
     {
-        minHeight = Screen.height switch
+        minHeight = 1.1f * Screen.height switch
         {
             var n when n > 720 => 90,
             var n when n > 400 => 50,
             _ => 32
         };
+        maxHeight = Screen.height * 0.95f;
+        minWidth = Screen.width * 0.1f;
+        maxWidth = Screen.width * 0.95f;
+        radius = 0.5f * DataManager.Instance.scaleRatio;
 
-        //loopBound  = 10000 * (1 / ((float)DataManager.Instance.totalNumber / 99.0f) * ((float)DataManager.Instance.totalNumber / 99.0f));
-       
-        //Debug.Log("Screen height " + Screen.height);
         for (int i = 1; i <= DataManager.Instance.totalNumber; i++)
         {
             Vector2 randomPos = GerenateRandomPosition();
@@ -35,12 +40,12 @@ public class SpawnManager : MonoBehaviour
     {
         Vector2 randomPos;
         RaycastHit2D hit;
-        int riskManager = 0;        
+        int riskManager = 0;
         do
         {
             riskManager++;
-            randomPos = new Vector2(Random.Range(Screen.width * 0.11f, Screen.width * 0.95f), Random.Range(minHeight, Screen.height * 0.95f));
-            hit = Physics2D.CircleCast(Camera.main.ScreenToWorldPoint(randomPos), 0.5f, Vector2.zero);
+            randomPos = new Vector2(Random.Range(minWidth, maxWidth), Random.Range(minHeight, maxHeight));
+            hit = Physics2D.CircleCast(Camera.main.ScreenToWorldPoint(randomPos), radius, Vector2.zero);
         } while (hit.collider != null && riskManager < loopBound);
 
         return Camera.main.ScreenToWorldPoint(randomPos);
