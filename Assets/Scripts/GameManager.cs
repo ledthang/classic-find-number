@@ -24,9 +24,9 @@ public class GameManager : MonoBehaviour
         }
         set
         {
-            if (value > 99)
+            if (value > DataManager.Instance.totalNumber)
             {
-                _currentNumner = 99;
+                _currentNumner = DataManager.Instance.totalNumber;
             }
             else _currentNumner = value;
         }
@@ -36,6 +36,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameObject canvas;
     [SerializeField] GameObject findCircleImg;
+
+    private float startTime; //time blitz
+    private float timeToAdd; //time blitz
 
     private void Awake()
     {
@@ -51,15 +54,42 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        AudioManager.Instance.LoadButton();
         currentNumber = 1;
-        time = 0;
+        if (DataManager.Instance.playMode == PlayMode.SingleTimeBlitz)
+        {
+            time = 60 * DataManager.Instance.totalNumber / 99.0f;
+            timeToAdd = 15 * DataManager.Instance.totalNumber / 99.0f;
+        }
+        else
+        {
+            time = 0;
+        }
+        Debug.Log("Mode: " + DataManager.Instance.playMode);
+        Debug.Log("Total Number: " + DataManager.Instance.totalNumber);
+        Debug.Log("Scale: " + DataManager.Instance.scaleRatio);
     }
 
     private void Update()
     {
         currentNumberText.text = currentNumber.ToString();
         DisplayTime(time);
-        time += Time.deltaTime;
+        if (DataManager.Instance.playMode == PlayMode.SingleTimeBlitz)
+        {
+            time -= Time.deltaTime;
+        }
+        else
+        {
+            time += Time.deltaTime;
+        }
+    }
+
+    public void AddTime()
+    {
+        if (DataManager.Instance.playMode == PlayMode.SingleTimeBlitz)
+        {
+            time += timeToAdd;
+        }
     }
 
     void DisplayTime(float timeToDisplay)
@@ -82,9 +112,34 @@ public class GameManager : MonoBehaviour
         GameObject currentNumObj = GameObject.Find(currentNumber.ToString());
         if (currentNumObj != null)
         {
+            StartCoroutine(FindFX(currentNumObj));
             currentNumber++;
             GameObject circle = Instantiate(findCircleImg, canvas.transform);
             circle.transform.position = Camera.main.WorldToScreenPoint(currentNumObj.transform.position);
         }
+    }
+
+    IEnumerator FindFX(GameObject obj)
+    {
+        for (int i = 0; i < 100; i++)
+        {
+            yield return new WaitForSeconds(0.01f);
+            obj.transform.localScale *= 1.01f;
+        }
+        for (int i = 0; i < 100; i++)
+        {
+            yield return new WaitForSeconds(0.01f);
+            obj.transform.localScale /= 1.01f;
+        }
+    }
+
+    public void BackButton()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void SoundButton()
+    {
+        AudioManager.Instance.SoundButtonOnClick();
     }
 }
