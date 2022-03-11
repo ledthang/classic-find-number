@@ -16,8 +16,6 @@ public class MainManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI multiNumberText;
     [SerializeField] Slider multiNumberSlider;
 
-
-
     private void Awake()
     {
         if (Instance == null)
@@ -76,6 +74,7 @@ public class MainManager : MonoBehaviour
 
     IEnumerator DelayStart()
     {
+        AdsManager.Instance.ShowInterstitialAd();
         yield return new WaitForSeconds(AudioManager.Instance.clickLength);
         SceneManager.LoadScene(1);
     }

@@ -77,8 +77,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI gameOverP1ScoreText;
     [SerializeField] TextMeshProUGUI gameOverP2ScoreText;
 
-    [Header("Back")]
+    [Header("Button")]
+    [SerializeField] public Button findButton;
     [SerializeField] GameObject backButtonState2;
+    [SerializeField] GameObject replayButtonState2;
+    [SerializeField] GameObject nextLevelButton;
 
     private void Awake()
     {
@@ -132,6 +135,8 @@ public class GameManager : MonoBehaviour
         Debug.Log("Mode: " + DataManager.Instance.playMode);
         Debug.Log("Total Number: " + DataManager.Instance.totalNumber);
         Debug.Log("Scale: " + DataManager.Instance.scaleRatio);
+
+        AdsManager.Instance.ShowBannerAd();
     }
 
     private void Update()
@@ -159,6 +164,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        AdsManager.Instance.HideBannerAd();
+    }
+
     public void AddTime()
     {
         if (DataManager.Instance.playMode == PlayMode.SingleTimeBlitz)
@@ -174,6 +184,13 @@ public class GameManager : MonoBehaviour
         float seconds = Mathf.FloorToInt(timeToDisplay % 60);
         float min = Mathf.FloorToInt(timeToDisplay / 60);
         timeText.text = timeToDisplay > 0 ? min + ":" + (seconds < 10 ? "0" : "") + seconds : "0:00";
+        if ((DataManager.Instance.playMode == PlayMode.SingleTimeBlitz) && timeToDisplay < 3)
+        {
+            timeText.color = Color.red;
+        } else
+        {
+            timeText.color = Color.white;
+        }
     }
 
     private bool IsGameOver()
@@ -249,19 +266,20 @@ public class GameManager : MonoBehaviour
         gameOverNoHighscoreLayer.SetActive(true);
         gameOverNoHighscoreText.text = "Highscore: " + highScore;
         gameOverYourScoreText.text = "Your score: " + score;
+        ShowNextLevelButton();
 
         if (!isGameOverSoundPlayed)
         {
             isGameOverSoundPlayed = true;
             AudioManager.Instance.NoHighscoreSFX();
         }
-
     }
     void HandleHighscore()
     {
         highScore = score;
         gameOverHighscoreLayer.SetActive(true);
         gameOverHighscoreText.text = "New highscore: " + highScore;
+        ShowNextLevelButton();
 
         if (!isGameOverSoundPlayed)
         {
@@ -302,7 +320,24 @@ public class GameManager : MonoBehaviour
 
     public void ReplayButton()
     {
+        StartCoroutine(TapAgainToReplay());
+    }
+    IEnumerator TapAgainToReplay()
+    {
+        replayButtonState2.SetActive(true);
+        yield return new WaitForSeconds(1.5f);
+        replayButtonState2.SetActive(false);
+    }
+
+    public void ReplayButtonState2()
+    {
+        AdsManager.Instance.ShowInterstitialAd();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void FindButtonShowAd()
+    {
+        AdsManager.Instance.ShowFindRewardAd();
     }
 
     public void FindButton()
@@ -354,6 +389,17 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(AudioManager.Instance.clickLength);
         SceneManager.LoadScene(0);
+    }
+
+    private void ShowNextLevelButton()
+    {
+        nextLevelButton.SetActive(true);
+    }
+
+    public void NextLevel()
+    {
+        DataManager.Instance.totalNumber++;
+        ReplayButtonState2();
     }
 
     public void SoundButton()

@@ -15,7 +15,7 @@ public class SpawnManager : MonoBehaviour
     private float loopBound = 10000;
     void Start()
     {
-        minHeight = 1.1f * Screen.height switch
+        minHeight = 1.25f * Screen.height switch
         {
             var n when n > 720 => 90,
             var n when n > 400 => 50,
