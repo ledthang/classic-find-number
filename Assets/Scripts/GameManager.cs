@@ -187,7 +187,8 @@ public class GameManager : MonoBehaviour
         if ((DataManager.Instance.playMode == PlayMode.SingleTimeBlitz) && timeToDisplay < 3)
         {
             timeText.color = Color.red;
-        } else
+        }
+        else
         {
             timeText.color = Color.white;
         }
@@ -266,7 +267,8 @@ public class GameManager : MonoBehaviour
         gameOverNoHighscoreLayer.SetActive(true);
         gameOverNoHighscoreText.text = "Highscore: " + highScore;
         gameOverYourScoreText.text = "Your score: " + score;
-        ShowNextLevelButton();
+        if (DataManager.Instance.totalNumber != 99)
+            ShowNextLevelButton();
 
         if (!isGameOverSoundPlayed)
         {
@@ -279,7 +281,8 @@ public class GameManager : MonoBehaviour
         highScore = score;
         gameOverHighscoreLayer.SetActive(true);
         gameOverHighscoreText.text = "New highscore: " + highScore;
-        ShowNextLevelButton();
+        if (DataManager.Instance.totalNumber != 99)
+            ShowNextLevelButton();
 
         if (!isGameOverSoundPlayed)
         {
