@@ -15,12 +15,16 @@ public class SpawnManager : MonoBehaviour
     private float loopBound = 10000;
     void Start()
     {
+#if UNITY_ANDROID || UNITY_IPHONE
         minHeight = 1.25f * Screen.height switch
         {
             var n when n > 720 => 90,
             var n when n > 400 => 50,
             _ => 32
         };
+#else
+        minHeight = Screen.height * 0.05f;
+#endif
         maxHeight = Screen.height * 0.95f;
         minWidth = Screen.width * 0.1f;
         maxWidth = Screen.width * 0.95f;

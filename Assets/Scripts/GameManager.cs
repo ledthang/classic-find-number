@@ -83,6 +83,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject replayButtonState2;
     [SerializeField] GameObject nextLevelButton;
 
+    int findLeft;
     private void Awake()
     {
         if (Instance == null)
@@ -107,8 +108,9 @@ public class GameManager : MonoBehaviour
 
         isGameOverLayerShown = false;
         isGameOverSoundPlayed = false;
-    }
 
+    }
+    
     private void LoadHighScore()
     {
         _highScore = PlayerPrefs.GetInt(highScoreKey);
@@ -123,6 +125,7 @@ public class GameManager : MonoBehaviour
     {
         AudioManager.Instance.LoadButton();
         currentNumber = 1;
+        findLeft = DataManager.Instance.totalNumber / 30;
         if (DataManager.Instance.playMode == PlayMode.SingleTimeBlitz)
         {
             time = 30 * DataManager.Instance.totalNumber / 99.0f;
@@ -135,8 +138,9 @@ public class GameManager : MonoBehaviour
         Debug.Log("Mode: " + DataManager.Instance.playMode);
         Debug.Log("Total Number: " + DataManager.Instance.totalNumber);
         Debug.Log("Scale: " + DataManager.Instance.scaleRatio);
-
+#if UNITY_ANDROID || UNITY_IPHONE
         AdsManager.Instance.ShowBannerAd();
+#endif
     }
 
     private void Update()
@@ -166,7 +170,9 @@ public class GameManager : MonoBehaviour
 
     private void OnDestroy()
     {
+#if UNITY_ANDROID || UNITY_IPHONE
         AdsManager.Instance.HideBannerAd();
+#endif
     }
 
     public void AddTime()
@@ -334,13 +340,25 @@ public class GameManager : MonoBehaviour
 
     public void ReplayButtonState2()
     {
+#if UNITY_ANDROID || UNITY_IPHONE
         AdsManager.Instance.ShowInterstitialAd();
+#endif
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void FindButtonShowAd()
     {
+#if UNITY_ANDROID || UNITY_IPHONE
         AdsManager.Instance.ShowFindRewardAd();
+#else
+        FindButton();
+        findLeft--;
+        Debug.Log(findLeft);
+        if (findLeft < 1)
+        {
+            findButton.interactable = false;
+        }
+#endif
     }
 
     public void FindButton()

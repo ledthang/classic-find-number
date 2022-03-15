@@ -83,11 +83,13 @@ public class AdsManager : MonoBehaviour
 
     void Start()
     {
+#if UNITY_ANDROID || UNITY_IPHONE
         MobileAds.Initialize(InitializationStatus => { });
         this.RequestBanner(bannerAdUnitId);
         this.bannerView.Hide();
         this.RequestAndLoadInterstitialAd(interstitialAdUnitId);
         this.rewardedAdFind = RequestAndLoadRewardedAd(rewardedAdFindUnitId);
+#endif
     }
 
     private AdRequest CreateAdRequest()
@@ -95,7 +97,7 @@ public class AdsManager : MonoBehaviour
         return new AdRequest.Builder().Build();
     }
 
-    #region BANNER ADS
+#region BANNER ADS
     private void RequestBanner(string adUnitId)
     {
 
@@ -120,9 +122,9 @@ public class AdsManager : MonoBehaviour
     {
         this.bannerView.Hide();
     }
-    #endregion
+#endregion
 
-    #region INTERSTITIAL ADS
+#region INTERSTITIAL ADS
 
     public void RequestAndLoadInterstitialAd(string adUnitId)
     {
@@ -180,9 +182,9 @@ public class AdsManager : MonoBehaviour
     }
 
 
-    #endregion
+#endregion
 
-    #region REWARDED ADS
+#region REWARDED ADS
 
     public RewardedAd RequestAndLoadRewardedAd(string adUnitId)
     {
@@ -245,7 +247,7 @@ public class AdsManager : MonoBehaviour
         GameManager.Instance.FindButton();
     }
 
-    #endregion
+#endregion
 
     void Update()
     {

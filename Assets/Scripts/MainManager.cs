@@ -74,7 +74,9 @@ public class MainManager : MonoBehaviour
 
     IEnumerator DelayStart()
     {
+#if UNITY_ANDROID || UNITY_IPHONE
         AdsManager.Instance.ShowInterstitialAd();
+#endif
         yield return new WaitForSeconds(AudioManager.Instance.clickLength);
         SceneManager.LoadScene(1);
     }
