@@ -1,6 +1,7 @@
 
 # Finding Number
 ![feature-img](https://i.ibb.co/52nGyXH/feature.png)
+## About
 I used to play this game with my sister in my childhood. It's a simple game, you just need a pencil and a paper to play. Firstly, you write random n numbers (usually 100) at random positions on the paper. And then, you will try to find the number in ascending order quickly as you can. It is the way to be a winner.
 
 Since I joined game industry, it was my first game, I made it with Cocos2dx, which had very simple art and UI/UX. When I started learning Unity, I decided to write this game once again. It's maybe an upgrade version with better graphics. 
